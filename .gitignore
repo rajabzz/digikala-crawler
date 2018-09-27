@@ -260,4 +260,8 @@ pip-selfcheck.json
 !.vscode/extensions.json
 
 
+### Scrapy ###
+scrapinghub.yml
+
+
 # End of https://www.gitignore.io/api/linux,macos,python,pycharm,visualstudiocode
