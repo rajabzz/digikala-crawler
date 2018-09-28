@@ -15,8 +15,12 @@ $ cd digikala-crawler
 $ pip install -r requirements.txt
 ```
 
-## Run The Crawler
+## Running The Crawler
 The following command runs the `comment` spider and saves the output in `results.jl`.
 ```bash
 $ scrapy crawl comment -o results.jl 
 ```
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
