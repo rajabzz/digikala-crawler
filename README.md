@@ -16,7 +16,7 @@ $ pip install -r requirements.txt
 ```
 
 ## Running The Crawler
-The following command runs the `comment` spider and saves the output in `results.jl`.
+The following command runs the `comment` spider and saves the output in the `results.jl` file.
 ```bash
 $ scrapy crawl comment -o results.jl 
 ```
