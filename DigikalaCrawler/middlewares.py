@@ -79,6 +79,7 @@ class DigikalacrawlerDownloaderMiddleware(object):
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
         return None
+	
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
@@ -87,7 +88,21 @@ class DigikalacrawlerDownloaderMiddleware(object):
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        return response
+        # return response
+
+        ## ----- MODIFIED BY ARMAN-------
+        if request.meta.get('dont_retry', False):
+            return response
+        elif response.status == 429:
+            self.crawler.engine.pause()
+            time.sleep(30) # If the rate limit is renewed in a minute, put 60 seconds, and so on.
+            self.crawler.engine.unpause()
+            reason = response_status_message(response.status)
+            return self._retry(request, reason, spider) or response
+        elif response.status in self.retry_http_codes:
+            reason = response_status_message(response.status)
+            return self._retry(request, reason, spider) or response
+        return response 
 
     def process_exception(self, request, exception, spider):
         # Called when a download handler or a process_request()
