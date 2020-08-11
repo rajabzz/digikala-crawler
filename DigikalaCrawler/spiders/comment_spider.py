@@ -9,7 +9,9 @@ class CommentSpider(scrapy.Spider):
     products_count = 0
 
     start_urls = [
+        # 'https://www.digikala.com/main/apparel/',
         'http://digikala.com/',
+        # 'https://digikala.com/main/book-and-media/'
     ]
 
     def parse(self, response):
@@ -64,8 +66,16 @@ class CommentSpider(scrapy.Spider):
             pos = [x.strip() for x in pos_raw]
             neg_raw = comment_selector.css('.c-comments__evaluation-negative li::text').extract()
             neg = [x.strip() for x in neg_raw]
-            txt = comment_selector.css('p::text').extract_first()
+            
+            ##########MODIFIED BY ARMAN############
+            # txt = comment_selector.css('p::text').extract_first()
+            txt_list = comment_selector.css('p::text').extract()
+            txt = ""
+            for txt_itr in txt_list:
+                txt += txt_itr.strip()+"\n"
             txt = txt.strip() if txt is not None else None
+            ########################################
+
             polarity = None
             if comment_section.css('.c-message-light--opinion-negative::text').extract_first() is not None:
                 polarity = -1
